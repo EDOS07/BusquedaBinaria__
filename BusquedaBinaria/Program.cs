@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BenchmarkDotNet.Running;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -9,7 +10,7 @@ namespace BusquedaBinaria
 {
     public class Program
     {
-        private static void Main(string[] cadenita)
+        public static void Main(string[] cadenita)
         {
 
 
@@ -17,6 +18,7 @@ namespace BusquedaBinaria
             var cadena = Console.ReadLine();
             cadena = Ordenamiento(cadena);
             Console.WriteLine(cadena);
+           
             Console.WriteLine("Ingrese el carater que quiere buscar");            
             var caracter = Console.ReadLine();
             var validacion = validaciones(cadena, caracter);
@@ -27,6 +29,7 @@ namespace BusquedaBinaria
             var busquedaordinaria = BusquedaOrdinaria(cadena, caracter);
             Console.WriteLine(resutado);
             Console.WriteLine(busquedaordinaria);
+            BenchmarkRunner.Run<IntParseBenchmarks>();
             Console.ReadLine();
         }
 
@@ -87,13 +90,8 @@ namespace BusquedaBinaria
                 if (cadenaOrdenada[mid] == Convert.ToChar(caracter))
                 {
                     iteraciones++;
-                    resultado = "Su carácter se encuentra en la posición " + mid + " y el numero de iteracione fue de " + iteraciones;
-                    cadenaOrdenada = cadenaOrdenada.Remove(mid);                    
-                    var noHaymas = validaciones(cadenaOrdenada, caracter);
-                    if (noHaymas == "false")
-                    {
-                        break;
-                    }
+                    resultado = "Su carácter se encuentra en la posición " + (mid+1) + " y el numero de iteracione fue de " + iteraciones;
+                    break;                    
                 }
                 else if (cadenaOrdenada[mid] < char.Parse(caracter))
                 {
